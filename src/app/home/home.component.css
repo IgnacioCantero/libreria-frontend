@@ -1,0 +1,53 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes blurIn {
+  from {
+    filter: blur(10px);
+  }
+  to {
+    filter: blur(0);
+  }
+}
+
+.contenedor {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.texto-entrada {
+  display: inline-block;
+  margin-bottom: 20px;
+  opacity: 0;
+  filter: blur(10px);
+  animation: fadeIn 2s ease-in-out forwards, blurIn 2s ease-in-out forwards;
+  color: dodgerblue;
+  font-size: 35px;
+  text-shadow: 4px 4px 4px black;
+}
+
+.entrar-btn {
+  display: inline-block;
+  padding: 15px 30px;
+  border: none;
+  background-color: dodgerblue;
+  color: #ffffff;
+  text-decoration: none;
+  opacity: 0;
+  filter: blur(10px);
+  animation: fadeIn 2s ease-in-out forwards, blurIn 2s ease-in-out forwards;
+  font-size: 25px;
+  animation-delay: 1s; /* Retrasar la animación del botón en 1 segundos */
+  border-radius: 10px;
+  text-shadow: 4px 4px 4px black;
+  box-shadow: 4px 4px 4px black;
+}

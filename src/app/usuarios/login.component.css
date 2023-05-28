@@ -1,0 +1,23 @@
+.login {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.login form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login .form-group {
+  width: 100%;
+}
+
+.login .form-group input[type="text"],
+.login .form-group input[type="password"] {
+  width: 100%;
+}
+
+.login .form-group .btn {
+  width: 100%;
+}

@@ -1,0 +1,66 @@
+<title>Listado de libros</title>
+<detalle-libro *ngIf="libroSeleccionado" [libro]="libroSeleccionado"></detalle-libro>
+<div class="card border-primary">
+  <div class="card-body text-primary">
+    <h2 class="card-title">Listado de libros</h2>
+    <div class="mb-3">
+      <button *ngIf="authService.hasRole('ROLE_ADMIN')" class="btn btn-rounded btn-primary" type="button" [routerLink]="['/libros/form']">Crear Libro</button>
+    </div>
+    <div *ngIf="libros?.length == 0" class="alert alert-info">¡No hay registros en la base de datos!</div>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped" *ngIf="libros?.length>0">
+        <thead>
+        <tr class="text-center text-uppercase">
+          <th>Detalle</th> <!-- Id -->
+          <th>Título</th>
+          <th>Autor</th>
+          <th>Publicación</th>
+          <th>Disponible</th>
+          <th *ngIf="authService.hasRole('ROLE_ADMIN')">Editar</th>
+          <th *ngIf="authService.hasRole('ROLE_ADMIN')">Eliminar</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let libro of libros">
+          <td style="vertical-align: middle">
+            <img *ngIf="libro?.foto" (click)="abrirModal(libro)"
+                 src="http://localhost:8080/api/uploads/img/{{libro.foto}}" alt="{{libro.foto}}"
+                 class="img-thumbnail rounded" style="width: 64px; cursor: pointer;"
+            >
+            <img *ngIf="!libro?.foto" (click)="abrirModal(libro)"
+                 src="http://localhost:8080/images/no-libro.png" alt="sin foto"
+                 class="img-thumbnail rounded" style="width: 64px; cursor: pointer;"
+            >
+          </td>
+          <td style="vertical-align: middle">{{libro.titulo | uppercase}}</td>
+          <td style="vertical-align: middle">{{libro.autor | uppercase}}</td>
+          <td style="vertical-align: middle">{{libro.createAt | date:"MMMM yyyy" | uppercase}}</td>
+          <td *ngIf="libro.disponibilidad == 'Si' || libro.disponibilidad == 'SI' || libro.disponibilidad == 'sI' || libro.disponibilidad == 'si'"
+              style="vertical-align: middle">
+            <div style="background-color: green; color: white" class="text-center p-2 rounded">{{libro.disponibilidad | uppercase}}</div>
+          </td>
+          <td *ngIf="libro.disponibilidad == 'No' || libro.disponibilidad == 'NO' || libro.disponibilidad == 'nO' || libro.disponibilidad == 'no'"
+              style="vertical-align: middle">
+            <div style="background-color: red; color: white" class="text-center p-2 rounded">{{libro.disponibilidad | uppercase}}</div>
+          </td>
+          <td *ngIf="libro.disponibilidad != 'Si' && libro.disponibilidad != 'SI' && libro.disponibilidad != 'sI' && libro.disponibilidad != 'si' &&
+                      libro.disponibilidad != 'No' && libro.disponibilidad != 'NO' && libro.disponibilidad != 'nO' && libro.disponibilidad != 'no'"
+              style="vertical-align: middle">
+            <div style="background-color: orange; color: white" class="text-center p-2 rounded text-uppercase">Consultar</div>
+          </td>
+
+          <td *ngIf="authService.hasRole('ROLE_ADMIN')" style="vertical-align: middle">
+            <button type="button" name="editar" [routerLink]="['/libros/form', libro.id]" class="btn btn-primary">Editar</button>
+          </td>
+          <td *ngIf="authService.hasRole('ROLE_ADMIN')" style="vertical-align: middle">
+            <button type="button" name="eliminar" (click)="delete(libro)" class="btn btn-danger">Eliminar</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="my-1">
+      <paginator-nav *ngIf="paginador" [paginador]="paginador"></paginator-nav>
+    </div>
+  </div>
+</div>

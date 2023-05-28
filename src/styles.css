@@ -1,1 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+html{
+  position: relative;
+  min-height: 100%;
+}
+
+body{
+  margin-bottom: 60px;
+
+  background: url("assets/images/portada.jpg") no-repeat center center fixed;
+  background-size: cover;
+  height: 100%;
+
+}
+
+.wrap{
+  padding-top: 170px;
+  padding-bottom: 60px;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

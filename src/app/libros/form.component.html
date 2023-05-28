@@ -1,0 +1,101 @@
+<ul class="alert alert-danger" *ngIf="errores?.length>0">
+  <li *ngFor="let err of errores">
+    {{err}}
+  </li>
+</ul>
+<div class="card bg-dark text-white">
+  <div class="card-header">Crear libro</div>
+  <div class="card-body">
+    <form #libroForm="ngForm">
+      <div class="row my-2">
+        <label for="titulo" class="col-form-label col-sm-2">Título</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" [(ngModel)]="libro.titulo" name="titulo" #titulo="ngModel" placeholder="Campo obligatorio [1-80 caracteres]">
+          <div class="alert alert-danger" *ngIf="titulo.invalid && (titulo.dirty || titulo.touched)">
+            <div *ngIf="titulo.errors.required">El título es obligatorio</div>
+            <div *ngIf="titulo.errors.minlength">El título debe contener entre 1 y 80 caracteres</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row my-2">
+        <label for="autor" class="col-form-label col-sm-2">Autor</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" [(ngModel)]="libro.autor" name="autor" #autor="ngModel" placeholder="Campo obligatorio [2-30 caracteres]">
+          <div class="alert alert-danger" *ngIf="autor.invalid && (autor.dirty || autor.touched)">
+            <div *ngIf="autor.errors.required">El autor es obligatorio</div>
+            <div *ngIf="autor.errors.minlength">El autor debe contener entre 2 y 30 caracteres</div>
+          </div>
+        </div>
+      </div>
+      <div class="row my-2">
+        <label for="isbn" class="col-form-label col-sm-2">ISBN</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" [(ngModel)]="libro.isbn" name="isbn" #isbn="ngModel" placeholder="Campo obligatorio [10-14 caracteres]">
+          <div class="alert alert-danger" *ngIf="isbn.invalid && (isbn.dirty || isbn.touched)">
+            <div *ngIf="isbn.errors.required">El isbn es obligatorio</div>
+            <div *ngIf="isbn.errors.minlength">El isbn debe contener entre 10 y 14 caracteres</div>
+          </div>
+        </div>
+      </div>
+      <div class="row my-2">
+        <label for="createAt" class="col-form-label col-sm-2">Fecha de publicación</label>
+        <div class="col-sm-6">
+          <input [matDatepicker]="miDatepicker" class="form-control" [(ngModel)]="libro.createAt" name="createAt" style="display: inline; width: 300px;" readonly tabindex="-1" placeholder="Selecciona una fecha en el calendario">
+          <mat-datepicker-toggle [for]="miDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #miDatepicker></mat-datepicker>
+        </div>
+      </div>
+      <div class="row my-2">
+        <label for="genero" class="col-form-label col-sm-2">Género</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" [(ngModel)]="libro.genero" name="genero" #genero="ngModel" placeholder="Campo obligatorio [2-30 caracteres]">
+          <div class="alert alert-danger" *ngIf="genero.invalid && (genero.dirty || genero.touched)">
+            <div *ngIf="genero.errors.required">El género es obligatorio</div>
+            <div *ngIf="genero.errors.minlength">El género debe contener entre 2 y 30 caracteres</div>
+          </div>
+        </div>
+      </div>
+      <div class="row my-2">
+        <label for="sinopsis" class="col-form-label col-sm-2">Sinopsis</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" [(ngModel)]="libro.sinopsis" name="sinopsis" #sinopsis="ngModel" placeholder="Campo obligatorio [2-2000 caracteres]">
+          <div class="alert alert-danger" *ngIf="sinopsis.invalid && (sinopsis.dirty || sinopsis.touched)">
+            <div *ngIf="sinopsis.errors.required">La sinopsis es obligatoria</div>
+            <div *ngIf="sinopsis.errors.minlength">La sinopsis debe contener entre 2 y 2000 caracteres</div>
+          </div>
+        </div>
+      </div>
+      <div class="row my-2">
+        <label for="disponibilidad" class="col-form-label col-sm-2">Disponible</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" [(ngModel)]="libro.disponibilidad" name="disponibilidad" #disponibilidad="ngModel" placeholder="Campo obligatorio [Si/No]">
+          <div class="alert alert-danger" *ngIf="disponibilidad.invalid && (disponibilidad.dirty || disponibilidad.touched)">
+            <div *ngIf="disponibilidad.errors.required">La disponibilidad es obligatoria</div>
+            <div *ngIf="disponibilidad.errors.minlength">La disponibilidad debe contener 2 caracteres (Si/No)</div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="libro.disponibilidad && libro.disponibilidad !== 'No' && libro.disponibilidad !== 'NO' && libro.disponibilidad !== 'nO' && libro.disponibilidad !== 'no'" class="row my-2">
+        <label for="ubicacion" class="col-form-label col-sm-2">Ubicación</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" [(ngModel)]="libro.ubicacion" name="ubicacion" #ubicacion="ngModel" placeholder="Debe tener 10 caracteres como máximo">
+          <div class="alert alert-danger" *ngIf="ubicacion.invalid && (ubicacion.dirty || ubicacion.touched)">
+            <div *ngIf="ubicacion.errors.maxlength">La ubicación tiene que tener 10 caracteres como máximo</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <button class="btn btn-primary mr-1" role="button" (click)="create()" *ngIf="!libro.id else elseBlock"
+                [disabled]="!libroForm.form.valid">Crear
+        </button>
+        <button class="btn btn-danger ms-1" role="button" (click)="return()">Cancelar</button>
+        <ng-template #elseBlock>
+          <button class="btn btn-primary mr-1" role="button" (click)="update()" [disabled]="!libroForm.form.valid">
+            Editar
+          </button>
+        </ng-template>
+      </div>
+    </form>
+  </div>
+</div>

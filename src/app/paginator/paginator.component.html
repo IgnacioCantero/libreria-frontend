@@ -1,0 +1,23 @@
+<ul class="pagination pagination-sm justify-content-center" *ngIf="paginas?.length>0">
+  <!-- PRIMERA PÁGINA: -->
+  <li [ngClass]="paginador.first?'disabled page-item':'page-item'">
+    <a class="page-link" [routerLink]="['/libros/page', 0]">INICIO</a>
+  </li>
+  <!-- ATRÁS: -->
+  <li class="page-item" *ngIf="paginador.number>0">
+    <a class="page-link" [routerLink]="['/libros/page', paginador.number-1]">&laquo;</a>  <!-- '&laquo;' -> flecha izquierda -->
+  </li>
+  <!-- PÁGINAS: -->
+  <li class="page-item" *ngFor="let pagina of paginas" [ngClass]="pagina-1==paginador.number?'active':''">
+    <span class="page-link" *ngIf="pagina-1==paginador.number">{{pagina}}</span>
+    <a class="page-link" *ngIf="pagina-1!=paginador.number" [routerLink]="['/libros/page', pagina-1]">{{pagina}}</a>
+  </li>
+  <!-- SIGUIENTE: -->
+  <li class="page-item" *ngIf="paginador.number < paginador.totalPages-1">
+    <a class="page-link" [routerLink]="['/libros/page', paginador.number+1]">&raquo;</a>  <!-- '&raquo;' -> flecha derecha -->
+  </li>
+  <!-- ÚLTIMA PÁGINA: -->
+  <li [ngClass]="paginador.last?'disabled page-item':'page-item'">
+    <a class="page-link" [routerLink]="['/libros/page', paginador.totalPages-1]">FIN</a>
+  </li>
+</ul>
