@@ -49,10 +49,10 @@
             <div style="background-color: orange; color: white" class="text-center p-2 rounded text-uppercase">Consultar</div>
           </td>
 
-          <td *ngIf="authService.hasRole('ROLE_ADMIN')" style="vertical-align: middle">
+          <td *ngIf="authService.hasRole('ROLE_ADMIN')" style="vertical-align: middle; text-align: center">
             <button type="button" name="editar" [routerLink]="['/libros/form', libro.id]" class="btn btn-primary">Editar</button>
           </td>
-          <td *ngIf="authService.hasRole('ROLE_ADMIN')" style="vertical-align: middle">
+          <td *ngIf="authService.hasRole('ROLE_ADMIN')" style="vertical-align: middle; text-align: center">
             <button type="button" name="eliminar" (click)="delete(libro)" class="btn btn-danger">Eliminar</button>
           </td>
         </tr>
