@@ -22,7 +22,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let libro of libros">
-          <td style="vertical-align: middle">
+          <td style="vertical-align: middle; text-align: center">
             <img *ngIf="libro?.foto" (click)="abrirModal(libro)"
                  src="http://localhost:8080/api/uploads/img/{{libro.foto}}" alt="{{libro.foto}}"
                  class="img-thumbnail rounded" style="width: 64px; cursor: pointer;"
